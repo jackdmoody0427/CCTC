@@ -17,4 +17,4 @@ Repository for my notes from CCTC
 | *Username* | jack.d.moody93 | 
 | **VTA** | https://vta.cybbh.space/ | 
 | **VPN Instructions** | https://cctc.cybbh.io/students/students/latest/openvpn-guide.html | 
-| sysinternals command| `net use * https://live.sysinternals.com/tools`|
+| Sysinternals Command| `net use * https://live.sysinternals.com/tools`|
