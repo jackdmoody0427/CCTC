@@ -164,8 +164,9 @@ Identify the Linux Kernel being loaded by the Grub, by examining its configurati
 
 hidden_processes_1
 There is malware on the system that is named similarly to a legitimate Windows executable. There is a .dll in the folder that the malware runs from. The flag is the name of the .dll.
-- `Get-Item HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce`
-- find the directories and dig into them to find a dll
+- `Get-Item HKCU:\Software\Microsoft\Windows\CurrentVersion\Run`
+- There is a file path that's "C:\Users\Public\Downloads\scvhost.exe'
+- cd to that path and ls 
 - libmingwex-0.dll
 
 hidden_processes_2
