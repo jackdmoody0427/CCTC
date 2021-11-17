@@ -146,7 +146,7 @@ Prevent the system restart using the command line, and then identify persistence
 - AlsKdJfhG
 
 remediate_4
-Run PowerShell... if you can. Resolve PowerShell dependencies. HINT: Search the entire file system for the PowerShell .dll and copy it back to where it needs to go. It is hidden in China. The flag is a file in the directory with the .dll
+Run PowerShell... if you can. Resolve PowerShell dependencies. HINT: Search the entire file system for the PowerShell .and copy it back to where it needs to go. It is hidden in China. The flag is a file in the directory with the .dll
 - run powershell, find note, look for dll
 - rfVBgtYHn
 
@@ -188,6 +188,7 @@ Creds:
 Machine: Workstation1 (RDP from Admin-Station)
   login: student
   password: password
+  
 - `.\autoruns.exe`
 - navigate to services
 - click Kerberos
@@ -195,3 +196,125 @@ Machine: Workstation1 (RDP from Admin-Station)
 - you'll see the flag (76aGreX5)
 OR
 - `gci "registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Kerberos\"`
+
+hidden_processes_5
+There is malware named TotallyLegit. Find its binary location and there will be a file in that directory. Read the file.
+HINT: Use Sysinternals tools.
+
+- gi "registry::HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\"
+- cd C:\Users\Public\Downloads\
+- cat .\Hmmmm.txt
+- GwlkK3sa
+
+hidden_processes_6
+Find the McAfeeFireTray.exe. There is a file in that directory. The flag is inside.
+HINT: Use Sysinternals tools.
+Creds:
+Machine: Workstation1 (RDP from Admin-Station)
+  login: student
+  password: password
+
+- search autoruns.exe for McaFeeFireTray.exe
+- find it's directory
+- `gci "C:\Program Files\Windows Defender Advanced Threat Protection"`
+- cd there
+- cat the file 
+- StrongBad
+
+situational_awareness_2
+What are the permissions for NT SERVICE\TrustedInstaller on spoolsv.exe? Copy the permissions from your shell.
+HINT: Use Sysinternals tools.
+
+- `gci "C:\windows\System32\" -Filter *.exe -recurse | % {$_.spoolsv}`
+- `Z:.\accesschk.exe -accepteula`
+- `Z:.\accesschk "C:\Windows\System32\spoolsv.exe"`
+- RW NT SERVICE\TrustedInstaller
+
+situational_awareness_3
+What is the PATH listed in the output when we find the handle for spoolsv.exe?
+HINT: Use Sysinternals tools. And, don't forget to run as Administrator...
+- `Z:.\Pslist -accepteula`
+- PID of spoolsv = 2236
+- ` z:.\handle.exe -p 2236`
+- C:\Windows\System32\en-US\spoolsv.exe.mui
+
+situational_awareness_4
+In what Load Order Group is the Windows Firewall service?
+HINT: Use Sysinternals tools.
+- .\LoadOrd.exe, look for the mpssvc service
+- NetworkProvider
+
+situational_awareness_5Z
+What is the first .dll associated with winlogon.exe? (Provide the name of the .dll only, not the /absolute/path)
+HINT: Use Sysinternals tools.
+- `Z:.\listdlls.exe winlogon.exe`
+- ntdll.dll
+
+situational_awareness_6
+While examining the Windows Defender Firewall, what is the LogAllowedConnections setting set to, for the Public profile?
+- Get-NetFirewallProfile
+- False
+
+
+hidden_processes_8
+Determine what mechanism opened the port from hidden_processes_7. The flag is the name of the file.
+Hint: The file is not legit.
+Creds:
+Machine: Workstation1 (RDP from Admin-Station)
+  login: student
+  password: password
+- recursively search for legit from root
+- legit_script.ps1
+
+## 10_windows_uac
+basics_7
+Provide the name of the UAC [Registry key] property that determines what level UAC is set to (Example UAC levels: Default, Always, Notify).
+
+- google it....
+- ConsentPromptBehaviorAdmin
+
+basics_8
+Query the registry key where UAC settings are stored, and provide the flag.
+- NiceJob
+
+## 12_linux_processes
+1J Processes 10
+Locate the strange open port on the SysV system.
+Identify how the process persists between reboots.
+The flag is the absolute path for the file that contains the persistence mechanism, and the configuration option.
+HINT: Persistence is defined here
+Flag format: filepath,configuration_option
+
+- `ps -eo pid,cmd | grep 9999`
+- `cd /etc; grep -R /bin/netcat 2>/dev/null`
+- /etc/inittab,91:2345:respawn:/bin/netcat -lp 9999
+
+2C Proc Dir 3
+Identify one of the human-readable file handles by the other program that creates a zombie process.
+NOTE: Remember, zombie processes only live until the parent process kills them. Try monitoring the processes list with top or htop to find them.
+The flag is the text from one of the files it reads.
+
+3A Find Evil 1
+Scenario: The Villains group has been chanting offerings to their new leader at regular intervals over a TCP connection.
+Task: Identify their method of communication and how it is occurring. Locate the following artifacts: ** The chant/text used by each villain (include spaces) ** The new Lord receiving the offering ** The IP address and port that the offering is received over
+Flag format: chant text,new Lord,IP:port
+Machine: Minas_Tirith
+
+cat offering
+#!/bin/bash
+(
+    flock -n 9 || exit 1
+    echo "chanting"
+    for i in $(seq 1  4); do netcat -w5 127.0.0.1 1234 < /home/Uruks/chant ; sleep 1; done
+)   9>/home/Uruks/chantlock
+
+ cat camlindon
+#!/bin/bash
+(
+ flock -n 9 || exit 1
+ echo "beaconing"
+ for i in $(seq 1 5); do nc -lw10 127.0.0.1 -p 1234 2>/dev/null  ; sleep 10; done
+ echo "done beaconing"
+) 9>/tmp/mylockfile
+
+- Mausan ukoul for avhe mubullat goth,witch_king,127.0.0.1:1234
