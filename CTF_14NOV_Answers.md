@@ -39,7 +39,10 @@ Flag format: ####
 Reformat
 File: home/garviel/numbers
 Use awk to print lines:
->= 420 AND <=1337
+>= 420 AND <=1337Alias	larry.c.coates.civ
+E-mail	larry.c.coates.civ@army.mil
+Office	Ft Knox
+Phone	(502) 613-7598
 The flag is a SHA512 hash of the output.
 
 - `awk 'NR>=420 && NR<=1337 { print }' numbers |sha512sum   `
@@ -176,3 +179,19 @@ You notice that there is an annoying pop up happening regularly. Investigate the
 hidden_processes_3
 Determine what is sending out a SYN_SENT message. The flag is the name of the executable.
 HINT: Use a Sysinternals tool.
+- mcafeefiretray.exe
+
+hidden_processes_4
+Malware uses names of legit processes to obfuscate itself. Give the flag located in Kerberos’ registry sub-key.
+HINT: Use Sysinternals tools.
+Creds:
+Machine: Workstation1 (RDP from Admin-Station)
+  login: student
+  password: password
+- `.\autoruns.exe`
+- navigate to services
+- click Kerberos
+- parameters
+- you'll see the flag (76aGreX5)
+OR
+- `gci "registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Kerberos\"`
