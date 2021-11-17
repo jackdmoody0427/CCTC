@@ -84,7 +84,7 @@ basics_2
 What registry hive contains all user settings?
 HKU
 
-basics_4
+basics_4cd 
 hkey_current_user\hkey_users
 
 ## 06_windows_file_system
