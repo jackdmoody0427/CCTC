@@ -15,6 +15,7 @@
 | Command | ssh student@10.50.39.177 -X |
 
 **Be sure to check notifications for flags, info, etc**
+
 Meat and Potatoe sections --> *Big days, recon, movement, and redirection*
 
 ### Practice CTFd
