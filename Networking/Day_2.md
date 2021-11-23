@@ -78,6 +78,8 @@ student@internet-host-student-11:~$ wireshark $PCAP
     - so it will say "10.10.10.22" instead of "10.10.10.ssh" if looking at port 22 
 - tcpdum for range of ports on 2 different hosts with a destination to a specific network 
     - `sudo tcpdump portrange 20-100 and host 10.1.0.2 or host 10.1.0.3 and dst net 10.20.0.0/24 -vn`
+- tcpdump is filtering for src network and destination network, or destination hos. However, don't include packets from this destination host. If it meets this criteria, include it in my packet list 
+    - `sudo tcpdump "(src net 10.1.0.0/24 && (dst net 10.3.0.0/24 || dst 10.2.0.3) && (! dst host 10.1.0.3))" -vn` 
 
 **Show interfaces**
 - `ip a`
