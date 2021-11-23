@@ -114,3 +114,66 @@ F = Result of Expresion
 G = optional: Logical Operator (&& ||) to bridge expressions
 Example:
 tcpdump 'ether[12:2] = 0x0800 && (tcp[2:2] != 22 && tcp[2:2] != 23)'
+
+------------------
+## CTFs
+
+### Example
+1. Basic Analysis - TTL 
+Level I Challenge
+What is the Berkeley Packet Filter, using tcpdump, to capture all packets with a ttl of 64 and less, utilizing the IPv4 or IPv6 Headers? There should be 4880 packets.
+Enter the Filter syntax with no spaces
+
+```
+student@internet-host-student-11:~$ PCAP2=/home/activity_resources/pcaps/BPFCheck.pcap
+student@internet-host-student-11:~$ echo $PCAP2
+/home/activity_resources/pcaps/BPFCheck.pcap
+student@internet-host-student-11:~$ sudo tcpdump 'ip[8]<=64||ip6[7]<=64' -n -r $PCAP2 |wc -l
+reading from file /home/activity_resources/pcaps/BPFCheck.pcap, link-type EN10MB (Ethernet)
+4880
+```
+- FLAG = ip[8]<=64||ip6[7]<=64
+
+2. Basic Analysis - Dont fragement 
+What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets with at least the Dont Fragment bit set? There should be 1897 packets.
+- `sudo tcpdump 'ip[6] & 0x40 = 0x40' -n -r $PCAP2 |wc -l`
+
+3. Basic Analysis - high port
+What is the Berkeley Packet Filter, using tcpdump, to capture traffic with a Source Port higher than 1024, utilizing the correct Transport Layer Headers? There should be 4431 packets.
+- `sudo tcpdump "tcp[0:2] > 1024 || udp[0:2] > 1024" -n -r $PCAP2 | wc -l `
+
+4. Basic Analysis - UDP
+What is the Berkeley Packet Filter, using tcpdump, to capture all Packets with UDP protocol being set, utilizing the IPv4 or IPv6 Headers? There should be 613 packets.
+
+- `sudo tcpdump "ip[9] =17 || ip6[6]=17" -n -r $PCAP2 | wc -l`
+
+5. Basic Analysis - tcp
+
+What is the Berkeley Packet Filter, using tcpdump, to capture only packets with the ACK/RST or ACK/FIN flag set, utilizing the correct Transport Layer Header? There should be 1161 packets.
+
+- `sudo tcpdump "tcp[13] = 0x11 || tcp[13]= 0x14" -n -r $PCAP2 | wc -l`
+
+6. Basic Analysis - ID
+What is the Berkeley Packet Filter, using tcpdump, to capture all packets with an IP ID field of 213? There should be 5 packets.
+
+- ` sudo tcpdump "ip[4:2]=213" -n -r $PCAP2 | wc -l`
+
+7. Basic Analysis - vlan 
+What is the Berkeley Packet Filter, using tcpdump, to capture all traffic that contains a VLAN tag? There should be 150 packets.
+
+- `sudo tcpdump 'ether[12:2] = 0x8100' -n -r $PCAP2 | wc -l`
+
+8. Basic Analysis - dns
+
+What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets relating to DNS? There should be 31 packets.
+
+- `sudo tcpdump "tcp[0:2]=53 ||tcp[2:2]=53 ||udp[2:2] =53 || udp[0:2]=53" -n -r $PCAP2 | wc -l`
+
+9. Basic Analysis - dscp
+What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets with the DSCP field of 24? There should be 31 packets.
+- `sudo tcpdump "ip[1]&252=96" -n -r $PCAP2 | wc -l`
+
+10. Basic Analysis - Traceroute
+What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets targeting just the beginning of traceroute as it's entering your network. This can be from a Windows or Linux machine using their default settings? There should be 55 packets.
+
+- `sudo tcpdump "(ip[9]=1 || ip[9]=17) && ip[8]=1" -n -r $PCAP2 | wc -l` 
