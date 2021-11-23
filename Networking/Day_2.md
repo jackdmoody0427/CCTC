@@ -99,3 +99,18 @@ student@internet-host-student-11:~$ wireshark $PCAP
 - greater than or equal to = (>=)
 - equal to = (==)
 - not equal to = (!=)
+
+**BPF**
+Using BPFs with operators, bitmasking, and TCPDump creates a powerful tool for traffic filtering and parsing.
+
+tcpdump {A} [B:C] {D} {E} {F} {G}
+
+A = Protocol (ether | arp | ip | ip6 | icmp | tcp | udp)
+B = Header Byte offset
+C = optional: Byte Length. Can be 1, 2 or 4 (default 1)
+D = optional: Bitwise mask (&)
+E = Operator (= | == | > | < | <= | >= | != | () | << | >>)
+F = Result of Expresion
+G = optional: Logical Operator (&& ||) to bridge expressions
+Example:
+tcpdump 'ether[12:2] = 0x0800 && (tcp[2:2] != 22 && tcp[2:2] != 23)'
