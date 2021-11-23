@@ -3,7 +3,7 @@
 - agenda
     - Lecture
         - Netowrk traffic sniffing
-        - Wireshark, TCPDump, and **BPFs**
+        - Wireshark, TCPDump, and **BPFs** (Berkeley Packet Filters)
         - Layer 2 switching tech
         - Layer 3 routing tech
    - BPF challenges
@@ -61,14 +61,39 @@ student@internet-host-student-11:~$ wireshark $PCAP
 **TCPDump**
 - `sudo tcpdump`
 - `sudo tcpdump not port 22`
-- 'sudo tcpdump tcp[2:2] !-22`
-- #show list of available netowrk interfaces that can be listened on using "-D"
+- `sudo tcpdump tcp[2:2] !-22`
+- Show list of available netowrk interfaces that can be listened on using "-D"
     - `sudo tcpdum -D`
 - Show packets on specific interface
     - `sudo tcpdum -i eth0`
 - -X(display packet data in HEX and ASCII)
 - -XX (display the packet in HEX and ASCII to inslude the Erhtner portion
+- -w to capture output to a file
+    - `sudo tcpdump -w output.pcap`
+- -r to read output file 
+    - `sudo tcpdump -r pcap.txt`
+- -v to make verbose
+    - `sudp tcpdump -v`
+- -n will give you number over name
+    - so it will say "10.10.10.22" instead of "10.10.10.ssh" if looking at port 22 
+- tcpdum for range of ports on 2 different hosts with a destination to a specific network 
+    - `sudo tcpdump portrange 20-100 and host 10.1.0.2 or host 10.1.0.3 and dst net 10.20.0.0/24 -vn`
+
+**Show interfaces**
+- `ip a`
 
 
-*Reverse find command*
--control r
+**Reverse find command**
+-`control r`
+- begin typing syntax you want to match 
+
+
+**Boolean/ conditional operators**
+- And = &&
+- Or = ||
+- Not = !
+- less than = < 
+- greater than = <
+- greater than or equal to = (>=)
+- equal to = (==)
+- not equal to = (!=)
