@@ -51,26 +51,42 @@ type constants should be: SOCK_STREAM (default), SOCK_DGRAM, SOCK_RAW
 proto constants should be: 0 (default), IPPROTO_RAW
 
 ### PYTHON3 LIBRARIES AND REFERENCES
-Socket
 
-https://docs.python.org/3/library/socket.html
+| Field | Value | 
+|-|-|
+| Socket |https://docs.python.org/3/library/socket.html | 
+| Struct | https://docs.python.org/3/library/struct.html | 
+| Sys | https://docs.python.org/3/library/sys.html | 
+| Errors| https://docs.python.org/3/tutorial/errors.html | 
+| Exceptions | https://docs.python.org/3/library/exceptions.html |
 
-Struct
-
-https://docs.python.org/3/library/struct.html
-
-Sys
-
-https://docs.python.org/3/library/sys.html
-
-Errors
-
-https://docs.python.org/3/tutorial/errors.html
-
-Exceptions
-
-https://docs.python.org/3/library/exceptions.html
 
 ### STREAM AND DATAGRAM SOCKET DEMOS
 Follow along with the instructor on the Internet Host
+```
+import socket 
 
+#you can also do s= socket.socket() due to AF_INET and SOCK_STREAM being defaults
+
+s = socket.socket(socket.AF_INET, socket.SOCKET_STREAM)
+
+#define IP address and port pair
+
+ipadder = "127.0.0.1"
+port = 54321
+
+#call on socket object 'connect(address)'
+s.connect((ipaddr,port))
+
+#to send a string as a bytes-like object, add the prefix b to the string. \n is used to go the the next line (hit enter)
+
+s.sent(b'Hello\n')
+
+#it is recommended that the buffersize used with teh recvfrom is a power of 2 and not a very large number of bits
+
+response, conn = s.recvfrom(1024) #use socket object 'recvfrom(buffersize)'
+
+#In order to recieve a message that is sent as a bytes-like object you must decode into utf-8(default)
+
+s.close()
+```
