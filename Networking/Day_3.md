@@ -98,3 +98,16 @@ response, conn = s.recvfrom(1024) #use socket object 'recvfrom(buffersize)'
 s.close()
 
 ```
+
+## Raw IPv4 Sockets
+
+- Raw Socket scripts must include the IP header and the next headers.
+- Requires guidance from the "Request for Comments" (RFC)to follow header structure properly.
+    - RFCs contain technical and organizational documents about the Internet, including specifications and policy documents.
+- See RFC 791, Section 3 - Specification for details on how to construct an IPv4 header.
+
+### RAW SOCKET USE CASE
+- Testing specific defense mechanisms - such as triggering and IDS for an effect, or filtering
+- Avoiding defense mechanisms
+- Obfuscating data during transfer
+- Manually crafting a packet with the chosen data in header fields
