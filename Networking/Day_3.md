@@ -111,3 +111,66 @@ s.close()
 - Avoiding defense mechanisms
 - Obfuscating data during transfer
 - Manually crafting a packet with the chosen data in header fields
+
+### RAW SOCKET Demo
+1. make script (rawIP.py)
+```
+#!/usr/bin/python3
+
+#For building the socket 
+import socket
+
+#for system level commands
+import sys
+
+#For doing an array in the TCP Command
+import array
+
+# For establishing the packet structure (used later on), this will allow direct acceess to the methods and functions in the struct module
+
+from struct import * 
+
+#Create raw socket
+
+#This is the exception handling part
+try:
+    s =socket.socket(socket.AF_INET, socket.SOCK_RAW,socket.IPPROTO_RAW)
+
+    packet = ''
+
+    src_ip = '10.1.0.2'
+    dst_ip = '10.3.0.2'
+
+    #Lets add the IPv4 header info
+
+    ip_ver_ihl = 69                      #This is putting the decimal conversion of 0x45 fro Version and Internet header length
+    ip_tos = 0                           #This combines DSCP and ECN fields
+    ip_len = 0                           #The kernel will fill in the actual lenght of the packer
+    ip_id = 12345                        #Thsi set the IP Identification of the packet
+    ip_frag = 0                          #This sets the fragmentation to offf
+    ip_ttl = 64                          #This determines the TTL of the packet when leaving the machine
+    ip_proto = 6                         #This sets the IP Protocol to 6 (TCP) so additional headers are required
+    ip_check= 0                          #The kernel will fill in th echecksum for the packet
+    ip_srcadd = socket.inet_aton(src_ip) #inet_aton(string) will ocnvert an IP address to a 32 bit binary number
+    ip_dstadd = socket.inet_aton(dst_ip) #inet_aton(string) will convert an IP address to a 32 bit binary number
+
+    ip_header= pack('!BBHHHBBH4s4s',ip_ver_ihl,ip_tos,ip_len,ip_id,ip_frag,ip_ttl,ip_proto,ip_check,ip_srcadd,ip_dstadd)
+
+    #B = 1 byte (Byte)
+    #H = 2 bytes (Half word)
+    #4s = 4 bytes (word - converted from string to binary)
+
+    #Add message to go with packet
+    message = b'This be da message yuh'
+    #update our packet variable with our payload(message)
+    packet = ip_header + message
+
+    #Now we gotta send it!
+    s.sendto(packet,(dst_ip,0))
+
+except socket.error as msg:
+    print(msg)
+    sys.exit()
+```
+3. open wireshark 
+4. apply filter: `ip.dst == 10.3.0.2`
