@@ -174,3 +174,56 @@ except socket.error as msg:
 ```
 3. open wireshark 
 4. apply filter: `ip.dst == 10.3.0.2`
+
+**Instructor Version of script after lunch**
+```
+#--IMPORT MODULES
+import socket 		# For building the socket
+import sys 		# For system level commands
+from struct import * 	# For packet structure and allow direct access to methods/functions in struct module.
+
+#--CREATE RAW SOCKET
+# When building out raw sockets it is recommended to perform exception handling.
+# Errors are considered exceptions in python, and can either break the program, or just make it not work as intended.  This can happen if
+# The way we try to avoid those errors is by handling exceptions using 'try' and 'except' for the type of error
+# Here is an example of error handling for an IPv4 raw socket:
+try:
+  s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
+except socket.error as msg:
+    print(msg)
+    sys.exit()
+
+packet = ''
+
+src_ip = "10.1.0.2"
+dst_ip = "10.3.0.2"
+
+#--BUILD IPv4 HEADER
+ip_ver_ihl = 69				# This is putting the decimal conversion of 0x45 for Version and Internet header Length
+ip_tos = 0				# This combines the DSCP and ECN fields
+ip_len = 0				# The kernel will fill in the actual length of the packet
+ip_id = 12345				# This sets the IP Identification for the packet
+ip_frag = 0				# This sets fragmentation to off
+ip_ttl = 64				# This determines the TTL of the packet when leaving the machine
+ip_proto = 6				# This sets the IP protocol to 6 (TCP) so additional headers are required
+ip_check = 0				# The kernel will fill in the checksum for the packet
+ip_srcadd = socket.inet_aton(src_ip)	# inet_aton(string) will convert an IP address to a 32 bit binary number
+ip_dstadd = socket.inet_aton(dst_ip)	# inet_aton(string) will convert an IP address to a 32 bit binary number
+
+#--PACK IPv4 HEADER
+ip_header = pack('!BBHHHBBH4s4s' , ip_ver_ihl, ip_tos, ip_len, ip_id, ip_frag, ip_ttl, ip_proto, ip_check, ip_srcadd, ip_dstadd)
+# ! allows us to format the packet to be in the correct order (network byte order)
+# B = 1 byte (Byte)
+# H = 2 bytes (Half Word)
+# 4s = 4 bytes (Word - Converted from string to binary)
+
+#--ADD A MESSAGE
+message = b'This is a message'
+
+#--PUT IT ALL TOGETHER
+packet = ip_header + message
+
+#--SEND THE PACKET
+s.sendto(packet, (dst_ip,0))
+```
+## RAW IPV4 TCP SOCKET DEMO 
