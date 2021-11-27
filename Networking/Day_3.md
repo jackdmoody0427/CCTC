@@ -19,7 +19,8 @@
 
 - Datagram Sockets - Connectionless; designed for quickly sending and receiving data. Used with UDP.
 
-- Raw Sockets - Direct sending and receiving of IP packets without automatic protocol-specific formatting.
+- Raw Sockets - Direct sending and receiving of IP packets without automatic 
+col-specific formatting.
 
 ### USER SPACE VS. KERNEL SPACE SOCKETS
 - User Space Sockets
@@ -394,3 +395,32 @@ Last Known SSH Port: unknown
 PSP: Unknown
 Malware: Unknown
 Action: Send a Stream Socket Message to this host
+
+------------------
+## CTFs
+- AddressFamilies
+What are the 3 Address Families associated with the python3 socket module?
+    - socket.AF_Unix, socket.AF_INET, socket.AF_INET6
+- Connections
+What are the two socket functions called to open a connection and to disconnect from that connection?
+    - socket.connect(), socket.close()
+
+- Header Preperation
+- What python3 library function is utilized to combine the various pieces of your raw socket packet into network order?
+        - Very FEW TRIES LEFT 
+
+- Missing Data
+- What must be manually created with raw sockets that stream and datagram sockets creates for you?
+    - 6 tries left 
+- Sending UDP
+What function within the socket module allows you to Send data to a socket, while not already being connected to a remote socket?
+    - socket.sendto()
+    
+- Transport Layer Sockets
+Provide an example of the two required items needed to be set in order to send a Datagram or Stream socket? (excluding any of the socket.socket functions)
+    - ipaddr, port
+    
+ - Object
+ When sending data across a connection, what must a string be converted to before being sent due to encoding?
+    - 
+
