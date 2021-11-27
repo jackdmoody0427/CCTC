@@ -422,5 +422,5 @@ Provide an example of the two required items needed to be set in order to send a
     
  - Object
  When sending data across a connection, what must a string be converted to before being sent due to encoding?
-    - 
+    - 3 tries remaining
 
