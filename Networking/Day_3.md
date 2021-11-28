@@ -410,10 +410,10 @@ What are the two socket functions called to open a connection and to disconnect 
         - Very FEW TRIES LEFT 
 
 - Missing Data
-- What must be manually created with raw sockets that stream and datagram sockets creates for you?
+    - What must be manually created with raw sockets that stream and datagram sockets creates for you?
     - 6 tries left 
 - Sending UDP
-What function within the socket module allows you to Send data to a socket, while not already being connected to a remote socket?
+    - What function within the socket module allows you to Send data to a socket, while not already being connected to a remote socket?
     - socket.sendto()
     
 - Transport Layer Sockets
