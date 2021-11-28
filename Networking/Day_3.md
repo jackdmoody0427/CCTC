@@ -407,11 +407,11 @@ What are the two socket functions called to open a connection and to disconnect 
 
 - Header Preperation
 - What python3 library function is utilized to combine the various pieces of your raw socket packet into network order?
-        - Very FEW TRIES LEFT 
+    - 3 tries left
 
 - Missing Data
     - What must be manually created with raw sockets that stream and datagram sockets creates for you?
-    - 6 tries left 
+    - Header
 - Sending UDP
     - What function within the socket module allows you to Send data to a socket, while not already being connected to a remote socket?
     - socket.sendto()
