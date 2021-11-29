@@ -426,9 +426,13 @@ Provide an example of the two required items needed to be set in order to send a
     - 3 tries remaining
 
 - Datagram Socket Message Sender
-- Gorgan Forces have requested you get a message to one of their remote teams that are utilizing the INTERNET_HOST. Utilizing the criteria they provided, generate a datagram socket with python3:. Coded information was placed into the video below. Listen to the words in the video.
-- port number = #The number of fists, Message=#The name of the band
-    - 8 tries remaining. Tried 10000,Disturbed and # in front 
+    - Gorgan Forces have requested you get a message to one of their remote teams that are utilizing the INTERNET_HOST. Utilizing the criteria they provided, generate a datagram socket with python3:. Coded information was placed into the video below. Listen to the words in the video.
+    - port number = #The number of fists, Message=#The name of the band
+        - copy dgram script
+        - change IP to internet host " 10.10.0.40"
+        - change Port to 10000
+        - run it
+        - c474ddb8e189a2b316a8078e74e7be80
 
 - Stream Socket Message sender
     - Gorgan Forces have requested you get a message to one of their remote teams that are utilizing the BLUE_DMZ_HOST-1. Utilizing the criteria they provided, generate a stream socket with python3: Coded information was placed into the video below. Look at the note the woman passes to the man. https://youtu.be/6WTdTwcmxyo?t=35
@@ -437,16 +441,10 @@ Provide an example of the two required items needed to be set in order to send a
     - Change port 5309
     - run the stream socket script
     - f8fa738ae384ee76751805dd6829061b
+ 
 - Raw IPv4 Socket
-- Gorgan forces, tool development cell have provided RAWSOCK.py for your teams use, it defines the basic structure of the desired result.
-
-Create a raw socket and code your message into the socket
-Send your last name as the data.
-The sent data is required to be encoded, with a final result of the data being in hex. You can use the python module of your choice; a good module to start with is binascii.
-When viewing in Wireshark, the packet should not be malformed
+    - Gorgan forces, tool development cell have provided RAWSOCK.py for your teams use, it defines the basic structure of the desired result.
+    - Create a raw socket and code your message into the socket. Send your last name as the data. The sent data is required to be encoded, with a final result of the data being in hex. You can use the python module of your choice; a good module to start with is binascii. When viewing in Wireshark, the packet should not be malformed
 
 - Raw IPv4 TCP Sockets 
-- Gorgan forces, tool development cell have provided RAWSOCK2.py for your teams use, it defines the basic structure of the desired result.
-
-Create a raw socket and code your message into the socket
-When viewing in Wireshark, the packet should not be malformed
+    - Gorgan forces, tool development cell have provided RAWSOCK2.py for your teams use, it defines the basic structure of the desired result. Create a raw socket and code your message into the socket When viewing in Wireshark, the packet should not be malformed
