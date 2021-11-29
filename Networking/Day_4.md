@@ -9,7 +9,7 @@
 | Field | Value | 
 |-|-|
 | Flag |  | 
-| name |  | 
+| Name |  | 
 
 ## Day 4: Recon
 
