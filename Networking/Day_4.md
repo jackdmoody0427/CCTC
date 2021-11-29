@@ -13,7 +13,7 @@
 
 ## Day 4: Recon
 
-**Critical to OCO and DCO
+**Critical to OCO and DCO**
 
 Types of Reconnaissance
 - Active
