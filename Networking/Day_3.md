@@ -44,7 +44,8 @@ import socket
 #### THE SOCKET.SOCKET FUNCTION
 Inside the socket.socket. function, you have these arguments, in order:
 
-socket.socket([*family*[,*type*[*proto*]]])
+socket.socket([*family*[,*type*[*proto*]]])from struct import * 
+
 family constants should be: AF_INET (default), AF_INET6, AF_UNIX
 
 type constants should be: SOCK_STREAM (default), SOCK_DGRAM, SOCK_RAW
@@ -403,11 +404,11 @@ What are the 3 Address Families associated with the python3 socket module?
     - socket.AF_Unix, socket.AF_INET, socket.AF_INET6
 - Connections
 What are the two socket functions called to open a connection and to disconnect from that connection?
-    - socket.connect(), socket.close()
+    - `socket.connect(), socket.close()`
 
 - Header Preperation
 - What python3 library function is utilized to combine the various pieces of your raw socket packet into network order?
-    - 3 tries left
+    - `struct.pack`
 
 - Missing Data
     - What must be manually created with raw sockets that stream and datagram sockets creates for you?
