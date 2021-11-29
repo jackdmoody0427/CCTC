@@ -431,8 +431,12 @@ Provide an example of the two required items needed to be set in order to send a
     - 8 tries remaining. Tried 10000,Disturbed and # in front 
 
 - Stream Socket Message sender
-- Gorgan Forces have requested you get a message to one of their remote teams that are utilizing the BLUE_DMZ_HOST-1. Utilizing the criteria they provided, generate a stream socket with python3: Coded information was placed into the video below. Look at the note the woman passes to the man. https://youtu.be/6WTdTwcmxyo?t=35
-
+    - Gorgan Forces have requested you get a message to one of their remote teams that are utilizing the BLUE_DMZ_HOST-1. Utilizing the criteria they provided, generate a stream socket with python3: Coded information was placed into the video below. Look at the note the woman passes to the man. https://youtu.be/6WTdTwcmxyo?t=35
+    - copy stream socket script
+    - Change the IP address to 172.16.1.15 
+    - Change port 5309
+    - run the stream socket script
+    - f8fa738ae384ee76751805dd6829061b
 - Raw IPv4 Socket
 - Gorgan forces, tool development cell have provided RAWSOCK.py for your teams use, it defines the basic structure of the desired result.
 
