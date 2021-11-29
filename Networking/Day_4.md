@@ -101,6 +101,18 @@ nmap [Options] [Target IP/ Subnet]
 nc [Options] [Target IP] [Target Port]
 ```
 ***
+Examples
+- whoami
+```
+whois harpoonbrewery.com
+dig @8.8.8.8 harpoonbrewery.com SOA
+netstat -antp | grep -i listen        #looks for listening ports
+nc localhost 80
+uname -a                              #list OS
+```
+
+
+***
 CTF Challenges
 -----------------------------------
 
