@@ -110,7 +110,79 @@ netstat -antp | grep -i listen        #looks for listening ports
 nc localhost 80
 uname -a                              #list OS
 ```
+### How to build your network map
+Host enumeration:
+  - hostname
+  - username/ passowrd
+  - ip address and subnet
+  - mac address
+  - OS w/ version
+  - open ports w/ service and version
+  - any files of interest (local and share) [optional]
+  - any process of interest [optional]
 
+You're on a brand new device, how do i see the hostname?
+- `cat /etc/hostname`
+- On a bash shell, its usually after the @ symbol
+
+Username and password:
+- student, password (or if router, bios, password)
+
+IP address, mac address:
+- `ip addr`
+
+OS:
+-`uname -a`
+
+open ports:
+- tcp ports: `netstat -antp |grep -i listen`
+- `nc loclahost 23`
+- `telnet localhost 23`
+
+**Scan.sh**
+```
+#!/bin/bash
+
+echo "Enter network address (e.g. 192.168.0): "
+
+read net
+
+echo "Enter starting host range (e.g. 1): "
+
+read start
+
+echo "Enter ending host range (e.g. 254): "
+
+read end
+
+echo "Enter ports space-delimited (e.g. 21-23 80): "
+
+read ports
+
+for ((i=$start; $i<=$end; i++))
+
+do
+
+    nc -nvzw1 $net.$i $ports 2>&1 | grep -E 'succ|open'
+
+done
+
+# (-v) running verbosely (-v on Linux, -vv on Windows),
+
+# (-n) not resolving names. numeric only IP(no D.S)
+
+# (-z) without sending any data. zero-I/O mode(used for scanning)
+
+#(-w1) waiting no more than 1second for a connection to occur
+
+# (2>&1) redirect STDERR to STDOUT. Results of scan are errors and need to redirect to output to grep
+
+# (-E) Interpret PATTERN as an extended regular expression
+
+# ( | grep open) for Debian to display only open connections
+
+# ( | grep succeeded) for Ubuntu to display only the open connections
+```
 
 ***
 CTF Challenges
