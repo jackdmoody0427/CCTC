@@ -209,6 +209,8 @@ CTFs
     p0f has extensive finger printing capabilities (as indicated by the name).
 
     Use p0f to read the pcap and determine the OS type of the host: 192.168.10.101
+    - `sudo ./plf -r /home/activity_resources/pcaps/attack_analysis1.pcap 'src host 192.168.10.101' `
+    - Linux 3.11 and newer
 6. Cellular 
 
     There is traffic related to 2G & 3G Cellular Communications, which uses a packet oriented mobile data standard.
@@ -222,7 +224,7 @@ CTFs
     The protocol being used to generate the traffic associated with 239.x.x.x is a UDP based protocol which is commonly used with UPnP for finding devices and services on the network.
 
     What is this protocol?
-
+    - Google Chrome
 8. Address 2 
 
     The protocol being used to generate the traffic associated with 239.x.x.x is a UDP based protocol which is commonly used with UPnP for finding devices and services on the network.
@@ -278,7 +280,8 @@ CTFs
     - look for the type A record
     - HP705A0FF92F8D.local,192.168.1.7
 
-15. 
+15. dfa
+    - PN-PTCP 192.168.10.111:55
 
 16. SCOP 
 
