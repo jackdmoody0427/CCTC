@@ -8,8 +8,8 @@
 ### CTFd info
 | Field | Value | 
 |-|-|
-| Flag |  | 
-| Name |  | 
+| Flag | N@tF1lt3rsf0rL1f3 | 
+| Name | IP/NFTables - NAT | 
 
 ## Day 6: Network Analysis
 
@@ -224,7 +224,7 @@ CTFs
     The protocol being used to generate the traffic associated with 239.x.x.x is a UDP based protocol which is commonly used with UPnP for finding devices and services on the network.
 
     What is this protocol?
-    - Google Chrome
+
 8. Address 2 
 
     The protocol being used to generate the traffic associated with 239.x.x.x is a UDP based protocol which is commonly used with UPnP for finding devices and services on the network.
@@ -283,7 +283,13 @@ CTFs
 15. dfa
     - PN-PTCP 192.168.10.111:55
 
-16. SCOP 
+16. IOT
+
+    - protocol hierarchy
+    - zigbee
+    - scop
+    - apply as filter
+    - SCoP,Hello
 
 17. RCE
 
@@ -295,7 +301,12 @@ CTFs
     - look for a weird protocol
     - quake3
 
-18. 
+18. Vuze
+
+    The Vuze DHT protocol was used as an exploit against 192.168.10.111, indicated in the protocol hierarchy page of Wireshark.
+
+    After analysis and some Open Source Research, what type of Application is Vuze?
+    - bittorrent
 
 19. Conversation
 
@@ -303,7 +314,11 @@ CTFs
 
     - 192.168.10.101,192.168.10.111
 
-20. 
+20. OS Fingerprint
+
+    Initial TTL can be used to determine host operating systems. Use a tool that will perform fingerprinting based on other criteria to determine the OS of the host with the IP address 192.168.10.111.
+
+    - Linux
 
 21. Attacked Port
 
@@ -312,7 +327,11 @@ CTFs
     - filter the ip
     - 55
 
-22. 
+22. Attacked Port 2
+
+    In the last challenge you discovered port 55 being targeted for attacks, this is within the well known range, what typical service is associated with it?
+
+    - isi-gl 
 
 23. Type of Attack
 
@@ -336,7 +355,10 @@ CTFs
 
     - yes 
 
-25. 
+25. Server Version
+    What version of Apache is running on the web server at the 192.168.10.111 address according to raw signatures in p0f?
+    - look for the ip and find apache
+    - 2.4.18
 
 26. Website Tool
 
@@ -345,12 +367,125 @@ CTFs
     - `ip.dst == 192.168.10.111 && http.request.method == "POST"` 
     - wordpress
 
-27. 
+27. Scanning Tools
 
-28. 
+    Wordpress provides a plethora of plugins, however these are notorious for vulnerabilities, and there are several ways to scan these types of servers. Perform OSR on some of the top tools that could be used.
+
+    Determine which 2 tools were used for scanning against 192.168.10.111. These tools can be identified through examining the user-agent strings.
+
+    - `(ip.dst == 192.168.10.111 && http.request.method == "GET")`
+    - Nikto, wpscan 
+
+28. Credentials
+
+    What is the username and password that was attempted against the axis2 plugin? (submit answer in the following format: jeff:mynamisjeff)
+
+    - `http.request.method=="GET" && http contains "axis2"`
+    - admin:axis2
 
 29. Plugin
 
     Consider the user agent strings identified in challenge 27.
 
     Analyze the related traffic, and identify what Plugin the vulnerability scan triggered on?
+        
+        - `ip.dst == 192.168.10.111 &&( http.request.method == "POST")`
+        - look for info with "plugins"
+        - only 2 have it.
+        - reflex-gallery
+
+30. Plugin CVE
+
+    Refer to challenge 29. What CVE is related to the plugin the web vulnerability scanner found? (you need to include the version in your research) Submit your answer as the cve listing (e.g. CVE-2019-9999)
+
+    - google it
+    - CVE-2015-4133
+
+31. Exploit
+
+    Reading the CVE details will provide you with the knowledge to know what the attacker is able to exploit. What was the Filename that was successfully uploaded by the attacker to 192.168.10.111?
+
+    - `ip.dst == 192.168.10.111 &&( http.request.method == "GET") || http contains "php" && http contains "reflex-gallery"`
+    - look through the encapsulated multipart part: 
+    - msf.php
+
+32. Exploit 2
+
+    The malicious upload referred to in challenge 31 is used to start communication for a specific tool, what is the name of this tool/framework (not the attack payload)?
+    - google it
+    - metasploit
+
+33. Payload
+
+    refer to challenge 32. This popular attack payload provides an interactive shell to the attacker, this payload uses in-memory DLL injection. Identify the payload name (this is a single word, not the payload in hex).
+    - google it
+    - meterpreter
+
+34. Language
+
+    What progamming language is the payload disovered in 33 written in? 
+
+    - ruby 
+
+35. Payload UUID
+
+    Refering to the payload identified in Challenge 34, what is the Payload UUID identified in the session of the host that was first compromised?
+
+    Enter answer in this format: \x11\x22\x33\x44\x55\x66\x77\x88\x99\xaa\xbb\xcc\xdd\xee\xff
+
+    - `data contains "UUID"`
+    - right click, follow TCP stream
+    - \x81\xc2\xe4\x1d\xc3\x06\xf6\xf6\xeb\xd8\xf8\xd7\xb2\xe2\xea\x5b
+
+36. Attacked IP
+
+    The 192.168.10.111 web server is now under control of the attacker through a reverse TCP connection via the meterpreter session. The 192.168.10.111 server is used to pivot to another target and perform the same actions the attacker took against 192.168.10.111, what is it's ip address?
+
+    - 192.168.10.112
+
+37. Malware Type
+
+    What type of malware is uploaded to the 192.168.10.112 server (not the malicious php upload to kick off the meterpreter session)? Look for a connection back to a malware repository in the TCP stream.
+
+    - ransomware 
+
+38. New Payload UUID
+
+    - \xc5\x0f\xbc\x3a\x9f\x31\x91\x0b\x42\x66\x51\x69\x1b\x5c\x43\xa3
+
+39. Malware Location
+
+    Refer back to challenge 37, the malware referenced in this question was identified as ransomware. What is the github repo from which the malware is downloaded? (submit your answer in the following format: https://github.com/horst_simco/malwarez)
+
+    - https://github.com/mauri870/ransomware 
+
+40. Malware Language
+
+    According to the github site, the malware was determined to be ransomware. What programming language was used to write this?
+
+    - go
+
+41. OS Target
+
+    Refer back to challenge 38, the malware referenced in this question was identified as ransomware. What OS is targeted by the malware?
+
+    - windows
+
+42. Architecture
+
+    The ransomware indicated in challenge 37 targets what type of system architecture?
+
+    - x86
+
+43. Assembly description
+
+    What is the assembly description in teh assembly manifest for the ransomware 
+
+    - Nothing to see here 
+
+44. Date
+
+    There is a protocol that provides clock synchronization between systems over packet-switched networks in this pcap. Use this information to determine the date of this packet capture. (format your answer as follows: Oct 20, 2019)
+
+    - `NTP`
+    - Jun 9, 2017

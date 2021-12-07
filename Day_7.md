@@ -8,10 +8,10 @@
 ### CTFd info
 | Field | Value | 
 |-|-|
-| Flag | T@bl3sth@tF1lt3r | 
-| Name |  | 
+| Flag | i_am_filtering_your_noise | 
+| IP/NFTables | T@bl3sth@tF1lt3r | 
 
-## Day 6: Network Traffic Filtering
+## Day 7: Network Traffic Filtering
 
 ### **Filtering Devices & Mechanisms**
 
@@ -294,3 +294,5 @@ ACCEPT     tcp  --  anywhere             anywhere             multiport ports ss
 student@internet-host-student-11:~$ sudo iptables -F
 student@internet-host-student-11:~$ 
 ```
+
+-----------------------
