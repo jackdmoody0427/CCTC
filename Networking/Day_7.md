@@ -296,3 +296,51 @@ student@internet-host-student-11:~$
 ```
 
 -----------------------
+-----------------------
+CTF Flags
+***
+
+1. IP/NFTables - Filtering T1
+
+    PTable Rule Definitions
+
+    Allow New and Established traffic to/from via SSH, TELNET, and RDP
+
+    Change the Default Policy in the Filter Table for the INPUT, OUTPUT, and FORWARD chains to DROP
+
+    Only allow Pivot to perform ping (ICMP) operations to/from
+
+    Allow ports 6579 and 4444 for both udp and tcp traffic
+
+    Allow New and Established traffic to/from via HTTP
+
+    Once these steps have been completed and tested, go to Pivot and open up a netcat listener on port 9001 and wait up to 2 minutes for your flag. If you did not successfully accomplish the tasks above, then you will not receive the flag.
+
+    - ssh 172.16.82.106 (T1)
+    - want to allow new and established traffic to and from 22, 23, and 3389
+    - flag: 467accfb25050296431008a1357eacb1
+
+```
+  13  sudo iptables -A INPUT -p tcp -m multiport --ports 22,23,3389 -j ACCEPT
+   14  sudo iptables -A OUTPUT -p tcp -m multiport --ports 22,23,3389 -j ACCEPT
+   15  sudo iptables -vL
+   16  sudo iptables -P INPUT DROP
+   17  sudo iptables -P FORWARD DROP
+   18  sudo iptables -P OUTPUT DROP
+   19  sudo iptables -A INPUT -p icmp --icmp-type 0 -s 10.10.0.40 -j ACCEPT
+   20  sudo iptables -A INPUT -p icmp --icmp-type 0 -d 10.10.0.40 -j ACCEPT
+   21  sudo iptables -D INPUT -p icmp --icmp-type 0 -d 10.10.0.40 -j ACCEPT
+   22  sudo iptables -L
+   23  sudo iptables -A INPUT -p icmp --icmp-type 8 -s 10.10.0.40 -j ACCEPT
+   24  sudo iptables -A OUTPUT -p icmp --icmp-type 8 -d 10.10.0.40 -j ACCEPT
+   25  sudo iptables -A OUTPUT -p icmp --icmp-type 0 -d 10.10.0.40 -j ACCEPT
+   26  sudo iptables -L
+   27  sudo iptables -A INPUT -p tcp -m multiport --ports 6579,4444 -j ACCEPT
+   28  sudo iptables -A OUTPUT -p tcp -m multiport --ports 6579,4444 -j ACCEPT
+   29  sudo iptables -A OUTPUT -p udp -m multiport --ports 6579,4444 -j ACCEPT
+   30  sudo iptables -A INPUT -p udp -m multiport --ports 6579,4444 -j ACCEPT
+   31  sudo iptables -A INPUT -p tcp -m multiport --ports 80 -j ACCEPT
+   32  sudo iptables -A OUTPUT -p tcp -m multiport --ports 80 -j ACCEPT
+   33  sudo iptables -L
+   34  ssh 10.10.0.40
+```
