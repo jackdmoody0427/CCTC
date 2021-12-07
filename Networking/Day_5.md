@@ -245,7 +245,7 @@ CTF Part 2
     - IH: telnet 10.50.32.104
     - netstat -nltp, see port 80 is open
     - ip a 
-    - make remote tunnel: `ssh -R 41110:localhost:22 student@10.50.39.177 -NT`
+    - make remote tunnel on SSH01: `ssh -R 41110:localhost:22 student@10.50.39.177 -NT`
     - make dynamic tunnel: `ssh net4_student11@localhost -p 41110 -D 9050 -NT`
     - proxychains wget -r 192.168.0.10
     - gimp flag
@@ -304,4 +304,11 @@ CTF Part 2
 
     0x8100
 
-10. 
+10. Inner 80 Flag
+
+    What is the answer to the flag found on a high port on Net-SSH-08?
+    - proxychains telnet 172.16.0.60
+    - `ssh -R 41150:localhost:22 net4_student11@192.168.0.40 -p 5555 -NT`
+
+    - telnet tunnel to 6 instead to preserve proxychain: `ssh net4_student11@localhost -p 41140 -L 41160:172.16.0.60:23 -NT`
+    
