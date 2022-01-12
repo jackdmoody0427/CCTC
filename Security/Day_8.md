@@ -20,7 +20,7 @@
 - see etc shadow:
     - `cd /etc`
     - `sudo cat shadow`
-    - ` cat pwd` - usernames
+    - ` cat passwd` - usernames
     - `sudo cat rsyslog.conf`
     - `cat hosts` - 
     - `cat crontab` - current user or -l for more 
